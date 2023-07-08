@@ -1,0 +1,13 @@
+#code{
+    min-width: 500px;
+    min-height: 500px;
+}
+
+.padd{
+    padding: 4vh;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+}

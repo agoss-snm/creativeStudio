@@ -7,9 +7,10 @@ const bodyParser = require('body-parser');
 const { Configuration, OpenAIApi } = require('openai');
 
 const Element = require('../models/Element.model');
+const Response = require("../models/Response.model");
 
 const config = new Configuration({
-  apiKey: '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'
+  apiKey: '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'
 });
 
 const openai = new OpenAIApi(config);
@@ -52,15 +53,30 @@ router.post("/chat", async (req, res, next) => {
     temperature: 0
   });
 
-  console.log(completion.data.choices)
-  console.log(completion.data.choices.length)
+  console.log(completion.data.choices);
+  console.log(completion.data.choices.length);
 
   if (completion.data && completion.data.choices && completion.data.choices.length > 0) {
+    // Guardar la respuesta en la base de datos
+    const response = new Response({
+      text: completion.data.choices[0].text,
+    });
+
+    response
+      .save()
+      .then((savedResponse) => {
+        // La respuesta se ha guardado correctamente en la base de datos
+        console.log("Response saved:", savedResponse);
+      })
+      .catch((error) => {
+        // Ha ocurrido un error al guardar la respuesta
+        console.error("Error saving response:", error);
+      });
+
     res.json({ response: completion.data.choices[0].text });
   } else {
     res.json({ response: "No se encontró ninguna respuesta" });
   }
 });
-
 
 module.exports = router;

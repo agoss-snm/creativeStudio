@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,KAAK,CAAA;EACD,SAAS,EAAE,KAAK;EAChB,UAAU,EAAE,KAAK;CACpB;;AAED,AAAA,KAAK,CAAA;EACD,OAAO,EAAE,GAAG;CACf;;AAED,AAAA,KAAK,CAAA;EACD,OAAO,EAAC,IAAI;EACZ,qBAAqB,EAAE,OAAO;CACjC",
+    "sources": [
+        "CreateIa.scss"
+    ],
+    "names": [],
+    "file": "CreateIa.css"
+}

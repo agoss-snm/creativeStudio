@@ -1,0 +1,16 @@
+#code {
+  min-width: 500px;
+  min-height: 500px;
+}
+
+.padd {
+  padding: 4vh;
+}
+
+.grid {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+}
+/*# sourceMappingURL=CreateIa.css.map */
