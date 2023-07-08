@@ -1,0 +1,155 @@
+.imgSmall {
+  border-radius: 50%;
+  max-width: 50px;
+  height: auto;
+  padding: 1vh;
+}
+
+.profileImg {
+  border-radius: 50%;
+  max-width: 50%;
+  height: auto;
+}
+
+.alignCenter {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.alignCenter .backgroundName {
+  background-color: #f1f1f1;
+  padding: 0vh 10vh;
+  border-radius: 15px;
+}
+
+.profileImgContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.profileImgContainer .addButton {
+  position: absolute;
+  bottom: 90px;
+  right: 150px;
+  width: 40px;
+  height: 40px;
+  background-color: #ffffff00;
+  border: none;
+  border-radius: 10px;
+  font-size: 24px;
+  color: #000000;
+  cursor: pointer;
+}
+
+.iconoEdit {
+  max-width: 4vh;
+}
+
+.profileTag {
+  color: #d3d3d3;
+}
+
+#profileGrid {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 2fr 1fr;
+      grid-template-columns: 1fr 2fr 1fr;
+  padding: 3vh;
+}
+
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+@media only screen and (min-width: 200px) and (max-width: 469px) {
+  .profileImgContainer {
+    position: relative;
+    display: inline-block;
+  }
+  .profileImgContainer .addButton {
+    position: absolute;
+    bottom: 50px;
+    right: 120px;
+    width: 40px;
+    height: 40px;
+    background-color: #ffffff00;
+    border: none;
+    border-radius: 10px;
+    font-size: 24px;
+    color: #000000;
+    cursor: pointer;
+  }
+}
+
+@media only screen and (min-width: 470px) and (max-width: 550px) {
+  .profileImgContainer {
+    position: relative;
+    display: inline-block;
+  }
+  .profileImgContainer .addButton {
+    position: absolute;
+    bottom: 50px;
+    right: 150px;
+    width: 40px;
+    height: 40px;
+    background-color: #ffffff00;
+    border: none;
+    border-radius: 10px;
+    font-size: 24px;
+    color: #000000;
+    cursor: pointer;
+  }
+}
+
+@media only screen and (min-width: 551px) and (max-width: 768px) {
+  .profileImg {
+    width: 50%;
+    padding: 1vh;
+  }
+  .backgroundName {
+    background-color: #d0d0d0;
+    padding: 0vh 10vh;
+    border-radius: 15px;
+  }
+  .profileImgContainer {
+    position: relative;
+    display: inline-block;
+  }
+  .profileImgContainer .addButton {
+    position: absolute;
+    bottom: 50px;
+    right: 130px;
+    width: 40px;
+    height: 40px;
+    background-color: #ffffff00;
+    border: none;
+    border-radius: 10px;
+    font-size: 24px;
+    color: #000000;
+    cursor: pointer;
+  }
+}
+/*# sourceMappingURL=ProfilePage.css.map */
