@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import DOMPurify from "dompurify";
 import "./CreateIa.css";
 
 const API_URL = "http://localhost:5005/api/chat";
@@ -18,8 +19,14 @@ function CreateIa() {
         const { response } = res.data;
         setResponse(response);
 
-        // Actualiza el estado renderedHtml con la respuesta HTML generada
-        setRenderedHtml(response);
+        // Limpia el código HTML y elimina estilos no deseados
+        const sanitizedHtml = DOMPurify.sanitize(response, {
+          ALLOWED_TAGS: ["button"],
+          ALLOWED_ATTR: ["style"],
+        });
+
+        // Actualiza el estado renderedHtml con el código HTML limpio
+        setRenderedHtml(sanitizedHtml);
       })
       .catch((err) => {
         console.log(err);
