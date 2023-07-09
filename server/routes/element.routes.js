@@ -10,7 +10,7 @@ const Element = require('../models/Element.model');
 const Response = require("../models/Response.model");
 
 const config = new Configuration({
-  apiKey: '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'
+  apiKey: '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'
 });
 
 const openai = new OpenAIApi(config);

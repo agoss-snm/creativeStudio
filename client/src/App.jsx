@@ -11,13 +11,21 @@ import IsAnon from "./components/IsAnon/IsAnon";
 import ElementsPage from "./pages/ElementsPage/ElementsPage";
 import AddElement from "./pages/AddElement/AddElement";
 import CreateIa from "./pages/CreateIA/CreateIa";
+import Footer from "./components/Footer/Footer";
 
-function App() {
-
+function App({ theme, setTheme, children }) {
+  const toggleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+  };
   
   return (
     <div className="App">
   <Navbar />
+  <div className={`${theme}`} id='toggle'>
+      <button onClick={toggleTheme}>Toggle Theme</button>
+      {children}
+    </div>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route
@@ -72,6 +80,8 @@ function App() {
       }
         />  
     </Routes>
+
+    <Footer/>
 
     </div>
   );

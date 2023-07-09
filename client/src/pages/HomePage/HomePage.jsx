@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import imagesLoaded from 'imagesloaded';
 import $ from 'jquery';
+import Footer from '../../components/Footer/Footer';
 
 function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -94,7 +95,11 @@ function HomePage() {
       
       <div className="demo-wrapper">
         <div className='containter'>
-          <h1 className='title'>AI-powered strategy creation</h1>
+          <div className='widthT'>
+            <h1 className='title'>AI-powered strategy creation</h1>
+            </div>
+          
+          <button className='btnCreateAI'> <a href="/createwithia" id='start'>Start</a></button>
           <div className="parallax box">
             <p>By combining the power of <code>`rem`</code> and a small JavaScript function to manipulate the <code>`font-size`</code> of the <code>`html`</code> element, we can achieve simple but effective parallaxing.</p>
             <p>Setting all our positions and parallax movements in CSS, this technique minimizes DOM manipulations to just one &ndash; on the <code>`html`</code> element &ndash; boosting overall performance, although certainly not better than using 3D transforms.</p>
@@ -140,19 +145,9 @@ function HomePage() {
           </ul>
         </section>
         <h1 >The &lsquo;root element&rsquo; parallax technique</h1>
-        <div>
-
-          <p>Lorem</p>
-        </div>
-
-        <footer className="df aic jcc">
-          <p>
-            Images from <a href="https://unsplash.com/">Unsplash</a>
-          </p>
-        </footer>
       </div>
 
-
+   
     </div>
   );
 }
