@@ -5,27 +5,28 @@ import HomePage from "./pages/HomePage/HomePage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
-import Navbar from "./components/Navbar/Navbar";
+import Navbarr from "./components/Navbar/Navbar";
 import IsPrivate from "./components/IsPrivate/IsPrivate";
 import IsAnon from "./components/IsAnon/IsAnon";
 import ElementsPage from "./pages/ElementsPage/ElementsPage";
 import AddElement from "./pages/AddElement/AddElement";
 import CreateIa from "./pages/CreateIA/CreateIa";
 import Footer from "./components/Footer/Footer";
+import ElementDetailPage from './pages/Element/ElementDetailPage'
 
 function App({ theme, setTheme, children }) {
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
   };
-  
+
   return (
     <div className="App">
-  <Navbar />
-  <div className={`${theme}`} id='toggle'>
-      <button onClick={toggleTheme}>Toggle Theme</button>
-      {children}
-    </div>
+      <Navbarr />
+      <div className={`${theme}`} id='toggle'>
+        <button onClick={toggleTheme}>Toggle Theme</button>
+        {children}
+      </div>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route
@@ -56,32 +57,37 @@ function App({ theme, setTheme, children }) {
         <Route
           path="/profile"
           element={
-            <ProfilePage/>
+            <ProfilePage />
+          }
+        />
+        <Route path="/elements/:id" 
+        element={<ElementDetailPage />} />
+
+        <Route
+          path='/elements'
+          element={<ElementsPage />}
+        />
+
+
+        <Route
+          path='/addElement'
+          element={
+            <AddElement />
           }
         />
 
-        <Route 
-        path= '/elements'
-        element={<ElementsPage/>}
+        <Route
+
+          path='/createwithia'
+          element={
+            <IsPrivate>
+              <CreateIa />
+            </IsPrivate>
+          }
         />
-  
+      </Routes>
 
-      <Route 
-        path= '/addElement'
-        element={
-        <AddElement/>
-      }
-        />
-
-      <Route 
-        path= '/createwithia'
-        element={
-        <CreateIa/>
-      }
-        />  
-    </Routes>
-
-    <Footer/>
+      <Footer />
 
     </div>
   );

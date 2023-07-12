@@ -1,22 +1,27 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./CreateIa.css";
-import Spinner from "../../components/Spinner/Spinner"; 
+import Spinner from "../../components/Spinner/Spinner";
 
 const API_URL = "http://localhost:5005/api/chat";
 
 function CreateIa({ isDarkMode }) {
   const [prompt, setPrompt] = useState("");
   const [response, setResponse] = useState("");
-  const [isLoading, setIsLoading] = useState(false); 
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const iframeRef = useRef(null);
+  const [title, setTitle] = useState("");
+
+  const navigate = useNavigate(); // Obtener la función de navegación
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const prefixedPrompt = `Devuélveme en HTML y CSS: ${prompt}`;
 
-    setIsLoading(true); // Inicia la carga
+    setIsLoading(true);
 
     axios
       .post(API_URL, { prompt: prefixedPrompt })
@@ -28,8 +33,28 @@ function CreateIa({ isDarkMode }) {
         console.log(err);
       })
       .finally(() => {
-        setIsLoading(false); // Finaliza la carga
+        setIsLoading(false);
       });
+  };
+
+  const handleSave = () => {
+    if (response) {
+      setIsSaving(true);
+
+      axios
+        .post("http://localhost:5005/api/elements", { title, code: response })
+        .then((res) => {
+          console.log(res.data);
+          // Realizar cualquier acción necesaria después de guardar el elemento
+          navigate("/elements"); // Navegar a la ruta "/elements"
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          setIsSaving(false);
+        });
+    }
   };
 
   useEffect(() => {
@@ -41,7 +66,6 @@ function CreateIa({ isDarkMode }) {
     }
   }, [response]);
 
-  
   return (
     <div className="containerCreation">
       <div className="center">
@@ -51,8 +75,15 @@ function CreateIa({ isDarkMode }) {
       <div className="">
         <div className="containerB">
           <form onSubmit={handleSubmit} id="formAI">
-            <div>
-              <p>Insert whatever you want the AI ​​to create for you</p>
+          <input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                id="titleForm"
+                placeholder="Title"
+              />
+            <div className='center'>
+              <label>Be creative 	&#10549;</label>
             </div>
             <div>
               <input
@@ -70,7 +101,7 @@ function CreateIa({ isDarkMode }) {
         <div className="grid">
           <div>
             <div className="flex">
-              {isLoading ? ( // Muestra el spinner si isLoading es true
+              {isLoading ? ( 
                 <Spinner />
               ) : (
                 <p>{response}</p>
@@ -87,6 +118,9 @@ function CreateIa({ isDarkMode }) {
                 className={isDarkMode ? "dark-mode" : ""}
               ></iframe>
             </div>
+            <button onClick={handleSave} disabled={!response || isSaving}>
+              {isSaving ? "Guardando..." : "Guardar"}
+            </button>
           </div>
         </div>
       </div>

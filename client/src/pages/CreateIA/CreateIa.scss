@@ -31,6 +31,9 @@ iframe {
     display: flex;
     flex-direction: column;
 }
+.center{
+    display: flex;
+}
 .containerB{
     display: flex;
     flex-direction: column;
@@ -43,6 +46,11 @@ iframe {
     margin: 1vh;
 }
 #inputForm{
+    border-color:black;
+    margin: 1vh;
+}
+
+#titleForm{
     border-color:black;
     margin: 1vh;
 }

@@ -4,7 +4,15 @@ import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import imagesLoaded from 'imagesloaded';
 import $ from 'jquery';
-import Footer from '../../components/Footer/Footer';
+//bootstrap
+import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+//img
+import max from '../../img/max.jpg'
+import h from '../../img/h.jpg'
+import g from '../../img/g.jpg'
+
 
 function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -47,21 +55,6 @@ function HomePage() {
       });
 
       // Add fade-in effect to images
-      gsap.utils.toArray('img').forEach((img) => {
-        gsap.fromTo(
-          img,
-          { opacity: 0 },
-          {
-            opacity: 1,
-            scrollTrigger: {
-              trigger: img,
-              start: 'top 80%', // Adjust the position at which the fade-in is triggered
-              end: 'bottom 20%', // Adjust the position at which the fade-in is completed
-              scrub: true,
-            },
-          }
-        );
-      });
 
       setIsLoading(false); // Indicate that the loading has finished
     };
@@ -70,7 +63,7 @@ function HomePage() {
   }, []);
 
   const viewport = $(window);
-  const root = $('html');
+  const root = $('.html');
   let maxScroll;
 
   viewport.on({
@@ -94,35 +87,19 @@ function HomePage() {
 
       
       <div className="demo-wrapper">
-        <div className='containter'>
+        <div className='containter' id='banner'>
           <div className='widthT'>
+              {/**ver si aqui tengo q poner el navbar */}
+
+
             <h1 className='title'>AI-powered strategy creation</h1>
+            <button className='btnCreateAI'> <a href="/createwithia" id='start'>Free Trial</a></button>
             </div>
-          
-          <button className='btnCreateAI'> <a href="/createwithia" id='start'>Start</a></button>
-          <div className="parallax box">
-            <p>By combining the power of <code>`rem`</code> and a small JavaScript function to manipulate the <code>`font-size`</code> of the <code>`html`</code> element, we can achieve simple but effective parallaxing.</p>
-            <p>Setting all our positions and parallax movements in CSS, this technique minimizes DOM manipulations to just one &ndash; on the <code>`html`</code> element &ndash; boosting overall performance, although certainly not better than using 3D transforms.</p>
-            <p>The speed and direction of each element is set using margins (for this demo, I've used <code>`margin-top`</code>). Play around with the numbers yourself to get a better understanding.</p>
-            <p>This is just a proof of concept and hasn't been fully tested, though it should work everywhere that supports <code>`rem`</code> (<a href="http://caniuse.com/#feat=rem">see here</a>). Using <code>`rem`</code> in this way does have its pitfalls &ndash; most notably the loss of its traditional usage &ndash; but it's a nice trick.</p>
-          </div>
+        
 
         </div>
-        <section className="demo-gallery gallery1">
-          <ul className="wrapper">
-            <li>
-            </li>
-            <li>
-              <img
-                src="https://source.unsplash.com/random/1240x874?sig=118"
-                alt="Gallery Image 3"
-              />
-            </li>
-          </ul>
-        </section>
-
         <section className="demo-gallery gallery2">
-        <h1 >The &lsquo;root element&rsquo; parallax technique</h1>
+        <h1 className='titlePad'>Your own personal designer,AI developer.</h1>
           <ul className="wrapper">
             <li>
               <img
@@ -144,10 +121,68 @@ function HomePage() {
             </li>
           </ul>
         </section>
-        <h1 >The &lsquo;root element&rsquo; parallax technique</h1>
+        
+        <div className='container' id='container3'>
+        <h1 className='titlePad'>No-code AI Website Builder</h1>
+        <Row xs={1} md={2} className="g-4">
+    <Col>
+      <Card className='d-flex align-items-center withnoLine'>
+        <div className="image-container">
+          <Card.Img className='imgCard'variant="top" src={max} />
+        </div>
+        <div className="card-content">
+          <Card.Body>
+            <Card.Title className='max'>&#10077;</Card.Title>
+            <Card.Text> <span className='yellowCard'>WordPress killer.</span> I finally enjoy updating my website and growing my business.</Card.Text>
+          </Card.Body>
+        </div>
+      </Card>
+    </Col>
+    <Col>
+      <Card className='d-flex align-items-center withnoLine'>
+        <div className="image-container">
+          <Card.Img className='imgCard' variant="top" src={h} />
+        </div>
+        <div className="card-content">
+          <Card.Body>
+            <Card.Title className='max'>&#10077;</Card.Title>
+            <Card.Text>We built our website in no time. <strong>Without coding</strong> and powered by <strong>AI technology</strong>, it's a game changer.</Card.Text>
+          </Card.Body>
+        </div>
+      </Card>
+    </Col>
+    <Col>
+      <Card className='d-flex align-items-center withnoLine'>
+        <div className="image-container">
+          <Card.Img className='imgCard' variant="top" src={g} />
+        </div>
+        <div className="card-content">
+          <Card.Body>
+            <Card.Title className='max'>&#10077;</Card.Title>
+            <Card.Text>I was able to generate a customized website in just a few clicks. <strong>Recommended!</strong></Card.Text>
+          </Card.Body>
+        </div>
+      </Card>
+    </Col>
+    <Col>
+      <Card className='d-flex align-items-center withnoLine'>
+        <div className="image-container">
+          <Card.Img className='imgCard' variant="top" src={max} />
+        </div>
+        <div className="card-content">
+          <Card.Body>
+            <Card.Title className='max'>&#10077;</Card.Title>
+            <Card.Text> <span className='yellowCard'>Time is money</span>. That's why this website builder is the perfect tool for me.</Card.Text>
+          </Card.Body>
+        </div>
+      </Card>
+    </Col>
+  </Row>
+    </div>
       </div>
+{/**carrousel */}
 
-   
+
     </div>
   );
 }

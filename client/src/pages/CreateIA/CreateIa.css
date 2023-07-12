@@ -47,6 +47,12 @@ iframe {
           flex-direction: column;
 }
 
+.center {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 .containerB {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -69,6 +75,11 @@ iframe {
 }
 
 #inputForm {
+  border-color: black;
+  margin: 1vh;
+}
+
+#titleForm {
   border-color: black;
   margin: 1vh;
 }

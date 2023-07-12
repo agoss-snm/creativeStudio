@@ -9,8 +9,12 @@ const elementSchema = new Schema(
     },
     code: {
       type: String
+    },
+    response: {
+      type: String
     }
-  }
+  },
+  { timestamps: true } // Agregar timestamps para almacenar la fecha de creación y actualización
 );
 
 const Element = model("Element", elementSchema);

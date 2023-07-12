@@ -79,4 +79,16 @@ nav ul li a:hover {
   position: fixed;
   right: 100px;
 }
+
+.black {
+  color: black;
+}
+
+.black > a {
+  color: black;
+}
+
+.bg-body-tertiary {
+  --bs-bg-opacity: 0 !important;
+}
 /*# sourceMappingURL=Navbar.css.map */
