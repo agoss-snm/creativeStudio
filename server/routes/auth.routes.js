@@ -60,7 +60,7 @@ router.post("/signup", (req, res, next) => {
 
       // Create the new user in the database
       // We return a pending promise, which allows us to chain another `then`
-      return User.create({ email, password: hashedPassword, name });
+      return User.create({ email, password: hashedPassword, name, elements: [] });
     })
     .then((createdUser) => {
       // Deconstruct the newly created user object to omit the password
@@ -111,13 +111,12 @@ router.post("/login", (req, res, next) => {
           expiresIn: "6h",
         });
 
-        // Send the token as the response
         res.status(200).json({ authToken: authToken });
       } else {
         res.status(401).json({ message: "Unable to authenticate the user" });
       }
     })
-    .catch((err) => next(err)); // In this case, we send error handling to the error handling middleware.
+    .catch((err) => next(err)); 
 });
 
 // GET  /auth/verify  -  Used to verify JWT stored on the client
@@ -128,6 +127,22 @@ router.get("/verify", isAuthenticated, (req, res, next) => {
 
   // Send back the token payload object containing the user data
   res.status(200).json(req.payload);
+});
+
+router.get("/:id", (req, res, next) => {
+  const userId = req.params.id;
+
+  User.findById(userId)
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+      res.json(user);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: "Error retrieving user details" });
+    });
 });
 
 module.exports = router;

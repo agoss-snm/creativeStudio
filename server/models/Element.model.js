@@ -12,9 +12,13 @@ const elementSchema = new Schema(
     },
     response: {
       type: String
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User"
     }
   },
-  { timestamps: true } // Agregar timestamps para almacenar la fecha de creación y actualización
+  { timestamps: true }
 );
 
 const Element = model("Element", elementSchema);

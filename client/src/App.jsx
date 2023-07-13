@@ -53,15 +53,17 @@ function App({ theme, setTheme, children }) {
               <LoginPage />
             </IsAnon>
           }
+
         />
+
         <Route
           path="/profile"
           element={
             <ProfilePage />
           }
         />
-        <Route path="/elements/:id" 
-        element={<ElementDetailPage />} />
+        <Route path="/elements/:id"
+          element={<ElementDetailPage />} />
 
         <Route
           path='/elements'

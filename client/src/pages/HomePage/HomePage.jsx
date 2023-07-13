@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import imagesLoaded from 'imagesloaded';
 import $ from 'jquery';
+import TimeLine from '../../components/TimeLine/TimeLine';
 //bootstrap
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
@@ -54,9 +55,14 @@ function HomePage() {
         );
       });
 
-      // Add fade-in effect to images
+      gsap.from('.title', {
+        opacity: 0,
+        y: 100,
+        duration: 3,
+        delay: 0.8,
+      });
 
-      setIsLoading(false); // Indicate that the loading has finished
+      setIsLoading(false);
     };
 
     imagesLoaded(images).on('progress', updateProgress).on('always', showDemo);
@@ -75,6 +81,7 @@ function HomePage() {
       maxScroll = root.height() - viewport.height();
     },
   }).trigger('resize');
+  
   return (
     <div className="containerr">
       <div className="loader df aic jcc">
@@ -84,22 +91,16 @@ function HomePage() {
         </div>
       </div>
 
-
-      
       <div className="demo-wrapper">
         <div className='containter' id='banner'>
           <div className='widthT'>
-              {/**ver si aqui tengo q poner el navbar */}
-
-
             <h1 className='title'>AI-powered strategy creation</h1>
             <button className='btnCreateAI'> <a href="/createwithia" id='start'>Free Trial</a></button>
-            </div>
-        
-
+          </div>
         </div>
+        
         <section className="demo-gallery gallery2">
-        <h1 className='titlePad'>Your own personal designer,AI developer.</h1>
+          <h1 className='titlePad1'>Your own personal designer, AI developer.</h1>
           <ul className="wrapper">
             <li>
               <img
@@ -121,68 +122,69 @@ function HomePage() {
             </li>
           </ul>
         </section>
+
+        <TimeLine/>
         
         <div className='container' id='container3'>
-        <h1 className='titlePad'>No-code AI Website Builder</h1>
-        <Row xs={1} md={2} className="g-4">
-    <Col>
-      <Card className='d-flex align-items-center withnoLine'>
-        <div className="image-container">
-          <Card.Img className='imgCard'variant="top" src={max} />
+          <h1 className='titlePad'>No-code AI Website Builder</h1>
+          <Row xs={1} md={2} className="g-4">
+            <Col>
+              <Card className='d-flex align-items-center withnoLine'>
+                <div className="image-container">
+                  <Card.Img className='imgCard' variant="top" src={max} />
+                </div>
+                <div className="card-content">
+                  <Card.Body>
+                    <Card.Title className='max'>&#10077;</Card.Title>
+                    <Card.Text> <span className='yellowCard'>WordPress killer.</span> I finally enjoy updating my website and growing my business.</Card.Text>
+                  </Card.Body>
+                </div>
+              </Card>
+            </Col>
+            <Col>
+              <Card className='d-flex align-items-center withnoLine'>
+                <div className="image-container">
+                  <Card.Img className='imgCard' variant="top" src={h} />
+                </div>
+                <div className="card-content">
+                  <Card.Body>
+                    <Card.Title className='max'>&#10077;</Card.Title>
+                    <Card.Text>We built our website in no time. <strong>Without coding</strong> and powered by <strong>AI technology</strong>, it's a game changer.</Card.Text>
+                  </Card.Body>
+                </div>
+              </Card>
+            </Col>
+            <Col>
+              <Card className='d-flex align-items-center withnoLine'>
+                <div className="image-container">
+                  <Card.Img className='imgCard' variant="top" src={g} />
+                </div>
+                <div className="card-content">
+                  <Card.Body>
+                    <Card.Title className='max'>&#10077;</Card.Title>
+                    <Card.Text>I was able to generate a customized website in just a few clicks. <strong>Recommended!</strong></Card.Text>
+                  </Card.Body>
+                </div>
+              </Card>
+            </Col>
+            <Col>
+              <Card className='d-flex align-items-center withnoLine'>
+                <div className="image-container">
+                  <Card.Img className='imgCard' variant="top" src={max} />
+                </div>
+                <div className="card-content">
+                  <Card.Body>
+                    <Card.Title className='max'>&#10077;</Card.Title>
+                    <Card.Text> <span className='yellowCard'>Time is money</span>. That's why this website builder is the perfect tool for me.</Card.Text>
+                  </Card.Body>
+                </div>
+              </Card>
+            </Col>
+          </Row>
         </div>
-        <div className="card-content">
-          <Card.Body>
-            <Card.Title className='max'>&#10077;</Card.Title>
-            <Card.Text> <span className='yellowCard'>WordPress killer.</span> I finally enjoy updating my website and growing my business.</Card.Text>
-          </Card.Body>
-        </div>
-      </Card>
-    </Col>
-    <Col>
-      <Card className='d-flex align-items-center withnoLine'>
-        <div className="image-container">
-          <Card.Img className='imgCard' variant="top" src={h} />
-        </div>
-        <div className="card-content">
-          <Card.Body>
-            <Card.Title className='max'>&#10077;</Card.Title>
-            <Card.Text>We built our website in no time. <strong>Without coding</strong> and powered by <strong>AI technology</strong>, it's a game changer.</Card.Text>
-          </Card.Body>
-        </div>
-      </Card>
-    </Col>
-    <Col>
-      <Card className='d-flex align-items-center withnoLine'>
-        <div className="image-container">
-          <Card.Img className='imgCard' variant="top" src={g} />
-        </div>
-        <div className="card-content">
-          <Card.Body>
-            <Card.Title className='max'>&#10077;</Card.Title>
-            <Card.Text>I was able to generate a customized website in just a few clicks. <strong>Recommended!</strong></Card.Text>
-          </Card.Body>
-        </div>
-      </Card>
-    </Col>
-    <Col>
-      <Card className='d-flex align-items-center withnoLine'>
-        <div className="image-container">
-          <Card.Img className='imgCard' variant="top" src={max} />
-        </div>
-        <div className="card-content">
-          <Card.Body>
-            <Card.Title className='max'>&#10077;</Card.Title>
-            <Card.Text> <span className='yellowCard'>Time is money</span>. That's why this website builder is the perfect tool for me.</Card.Text>
-          </Card.Body>
-        </div>
-      </Card>
-    </Col>
-  </Row>
-    </div>
       </div>
-{/**carrousel */}
 
-
+    
     </div>
   );
 }

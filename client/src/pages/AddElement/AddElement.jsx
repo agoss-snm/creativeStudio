@@ -16,7 +16,6 @@ function AddElement() {
     axios
       .post(`${API_URL}/api/elements`, requestBody)
       .then((response) => {
-        // Reset the state
         setTitle("");
         setCode('');
       })

@@ -8,9 +8,11 @@ const { Configuration, OpenAIApi } = require('openai');
 
 const Element = require('../models/Element.model');
 const Response = require("../models/Response.model");
+const User = require("../models/User.model");
+
 
 const config = new Configuration({
-  apiKey: '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'
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 const openai = new OpenAIApi(config);
@@ -18,7 +20,6 @@ const openai = new OpenAIApi(config);
 router.use(bodyParser.json());
 router.use(cors());
 
-// Agregar middleware para habilitar CORS
 router.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
@@ -28,21 +29,34 @@ router.use((req, res, next) => {
 
 // Ruta para crear un nuevo elemento
 router.post("/elements", (req, res, next) => {
-  const { title, code } = req.body;
+  const { title, code, userId } = req.body;
 
-  Element.create({ title, code })
+  Element.create({ title, code, user: userId })
     .then((element) => {
-      res.json(element);
+      User.findByIdAndUpdate(
+        userId,
+        { $push: { elements: element._id } },
+        { new: true }
+      )
+        .then(() => {
+          res.json(element);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(500).json({ error: "Error updating user elements" });
+        });
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ error: "Error al crear el elemento" });
+      res.status(500).json({ error: "Error creating the element" });
     });
 });
+
 
 // Ruta para obtener todos los elementos
 router.get("/elements", (req, res, next) => {
   Element.find()
+  .populate('user')
     .then((allElements) => res.json(allElements))
     .catch((err) => {
       console.log(err);
@@ -91,9 +105,9 @@ router.post("/chat", async (req, res, next) => {
  // Ruta para obtener los detalles de un elemento específico
 router.get("/elements/:id", (req, res, next) => {
   const elementId = req.params.id;
-console.log(elementId)
-  Element.findById(elementId) 
 
+  Element.findById(elementId) 
+    .populate('user')
     .then((element) => {
       console.log(element)
       if (!element) {

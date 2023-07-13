@@ -7,7 +7,7 @@ import { AuthProviderWrapper } from "./context/auth.context";
 
 function ThemeProviderWrapper({ children }) {
   const [theme, setTheme] = useState("light");
-  
+
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
@@ -16,15 +16,15 @@ function ThemeProviderWrapper({ children }) {
 
   return (
     <div className={`app ${theme}`}>
-    {children(theme, setTheme)}
-  </div>
+      {children(theme, setTheme)}
+    </div>
   );
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Router>
     <AuthProviderWrapper>
-    <ThemeProviderWrapper>
+      <ThemeProviderWrapper>
         {(theme, setTheme) => (
           <App theme={theme} setTheme={setTheme} />
         )}
