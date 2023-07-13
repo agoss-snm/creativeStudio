@@ -20,7 +20,7 @@ const ElementDetailPage = () => {
                 console.log(`response.data = ${response.data._id}`);
 
                 axios
-                    .get(`http://localhost:5005/api/users/${response.data.user._id}`)
+                    .get(`http://localhost:5005/api/users/${response.data.user}`)
                     .then((userResponse) => {
                         setUserName(userResponse.data.name);
                     })
