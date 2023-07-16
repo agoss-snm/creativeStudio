@@ -28,15 +28,18 @@ router.use((req, res, next) => {
 });
 
 // Ruta para crear un nuevo elemento
+
+
 router.post("/elements", (req, res, next) => {
   const { title, code, userId } = req.body;
+  console.log(userId)
 
-  Element.create({ title, code, user: userId })
+  Element.create({ title: title, code: code, user: userId })
+
     .then((element) => {
       User.findByIdAndUpdate(
         userId,
-        { $push: { elements: element._id } },
-        { new: true }
+        { $push: { elements: element._id } }
       )
         .then(() => {
           res.json(element);
@@ -51,6 +54,7 @@ router.post("/elements", (req, res, next) => {
       res.status(500).json({ error: "Error creating the element" });
     });
 });
+
 
 
 // Ruta para obtener todos los elementos
@@ -81,20 +85,6 @@ router.post("/chat", async (req, res, next) => {
   if (completion.data && completion.data.choices && completion.data.choices.length > 0) {
     const responseText = completion.data.choices[0].text;
 
-    const element = new Element({
-      title: req.body.title,
-      code: responseText,
-      response: responseText
-    });
-
-    element
-      .save()
-      .then((savedElement) => {
-        console.log("Element saved:", savedElement);
-      })
-      .catch((error) => {
-        console.error("Error saving element:", error);
-      });
 
     res.json({ response: responseText });
   } else {
@@ -102,23 +92,25 @@ router.post("/chat", async (req, res, next) => {
   }
 });
 
- // Ruta para obtener los detalles de un elemento específico
 router.get("/elements/:id", (req, res, next) => {
   const elementId = req.params.id;
 
-  Element.findById(elementId) 
-    .populate('user')
+  Element.findById(elementId)
+    .populate("user", 'name') 
     .then((element) => {
-      console.log(element)
       if (!element) {
         return res.status(404).json({ error: "Element not found" });
       }
+
       res.json(element);
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ error: "Error retrieving element details" });
+      res.status(500).json({ error: "Error retrieving the element" });
     });
 });
 
+
+
 module.exports = router;
+

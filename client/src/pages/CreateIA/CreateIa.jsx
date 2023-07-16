@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./CreateIa.css";
 import Spinner from "../../components/Spinner/Spinner";
+import { AuthContext } from '../../context/auth.context'
+
 
 const API_URL = "http://localhost:5005/api/chat";
 
@@ -13,8 +15,10 @@ function CreateIa({ isDarkMode }) {
   const [isSaving, setIsSaving] = useState(false);
   const iframeRef = useRef(null);
   const [title, setTitle] = useState("");
+  const { user, authenticateUser } = useContext(AuthContext);
 
-  const navigate = useNavigate(); // Obtener la función de navegación
+  const navigate = useNavigate();
+  const authToken = localStorage.getItem("authToken");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,20 +46,34 @@ function CreateIa({ isDarkMode }) {
       setIsSaving(true);
 
       axios
-        .post("http://localhost:5005/api/elements", { title, code: response })
-        .then((res) => {
-          console.log(res.data);
-          // Realizar cualquier acción necesaria después de guardar el elemento
-          navigate("/elements"); // Navegar a la ruta "/elements"
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-        .finally(() => {
-          setIsSaving(false);
-        });
+      .post(
+        "http://localhost:5005/api/elements",
+        { title, code: response, userId: user._id }, // Pasar userId directamente en el cuerpo de la solicitud
+        { headers: { Authorization: `Bearer ${authToken}` } }
+      )
+      .then((res) => {
+        console.log(res.data);
+        navigate("/elements");
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setIsSaving(false);
+      });
+    
     }
   };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        await authenticateUser();
+      } catch (err) {
+        console.log(err);
+      }
+    })();
+  }, []);
 
   useEffect(() => {
     if (response) {
@@ -66,6 +84,11 @@ function CreateIa({ isDarkMode }) {
     }
   }, [response]);
 
+  if (!user) {
+    return null; // Mostrar un estado de carga o redirigir a la página de inicio de sesión mientras se completa la autenticación
+  }
+
+
   return (
     <div className="containerCreation">
       <div className="center">
@@ -75,13 +98,13 @@ function CreateIa({ isDarkMode }) {
       <div className="">
         <div className="containerB">
           <form onSubmit={handleSubmit} id="formAI">
-          <input
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                id="titleForm"
-                placeholder="Title"
-              />
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              id="titleForm"
+              placeholder="Title"
+            />
             <div className='center'>
               <label>Be creative 	&#10549;</label>
             </div>
@@ -101,7 +124,7 @@ function CreateIa({ isDarkMode }) {
         <div className="grid">
           <div>
             <div className="flex">
-              {isLoading ? ( 
+              {isLoading ? (
                 <Spinner />
               ) : (
                 <p>{response}</p>

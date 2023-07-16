@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import "../Element/Element.css";
-import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/auth.context";
+
 
 const ElementDetailPage = () => {
     const { id } = useParams();
-    console.log(id);
     const [element, setElement] = useState(null);
     const [renderedCode, setRenderedCode] = useState(null);
-    const [userName, setUserName] = useState("");
+    const [isCurrentUser, setIsCurrentUser] = useState(false);
+    const { user } = useContext(AuthContext);
 
     useEffect(() => {
         axios
@@ -17,17 +18,19 @@ const ElementDetailPage = () => {
             .then((response) => {
                 setElement(response.data);
                 setRenderedCode(response.data.code);
-                console.log(`response.data = ${response.data._id}`);
-
-                axios
-                    .get(`http://localhost:5005/api/users/${response.data.user}`)
-                    .then((userResponse) => {
-                        setUserName(userResponse.data.name);
-                    })
-                    .catch((error) => console.log(error));
+                setIsCurrentUser(response.data.user._id === user._id);
             })
             .catch((error) => console.log(error));
-    }, [id]);
+    }, [id, user]);
+
+    const handleDelete = () => {
+        axios
+            .delete(`http://localhost:5005/api/elements/${id}`)
+            .then(() => {
+                
+            })
+            .catch((error) => console.log(error));
+    };
 
     if (!element) {
         return <div>Cargando...</div>;
@@ -50,20 +53,25 @@ const ElementDetailPage = () => {
                     <div
                         className="rendered-code"
                         dangerouslySetInnerHTML={createMarkup()}
-                    />{" "}
-
+                    />
                 </div>
                 <div className="padd2">
-                    <p>Usuario: {userName}</p>
+                    <p>Usuario: {element.user.name}</p>
                 </div>
             </div>
             <div className="linksDetail">
                 <button className="buttonDetail">
                     <Link to={"/elements"}>Back</Link>
                 </button>
-                <button className="buttonDetail">Save</button>
-                <button className="buttonDetail">Delete</button>
-                <button className="buttonDetail">Edit</button>
+                {isCurrentUser && (
+                    <>
+                        <button className="buttonDetail">Save</button>
+                        <button className="buttonDetail" onClick={handleDelete}>
+                            Delete
+                        </button>
+                        <button className="buttonDetail">Edit</button>
+                    </>
+                )}
             </div>
         </div>
     );

@@ -6,9 +6,27 @@
   margin: 0 auto;
 }
 
+.page-header {
+  margin-top: 5vh;
+}
+
+.backgroundB {
+  background-color: #6d6d6d07;
+  padding-top: 5vh;
+}
+
+.yellowp {
+  color: #ff7300;
+}
+
 #icon {
-  width: 100%;
+  width: 15vh;
+  height: auto;
   border-radius: 50%;
+}
+
+.yellowCard {
+  background-color: rgba(255, 255, 0, 0.555);
 }
 
 #conference-timeline .timeline-start,
@@ -246,7 +264,7 @@
 }
 
 .timeline > li > .timeline-panel {
-  width: 46%;
+  width: 40%;
   float: left;
   border: 1px solid #d4d4d4;
   border-radius: 2px;

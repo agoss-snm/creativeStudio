@@ -6,17 +6,19 @@ import imagesLoaded from 'imagesloaded';
 import $ from 'jquery';
 import TimeLine from '../../components/TimeLine/TimeLine';
 //bootstrap
-import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-//img
-import max from '../../img/max.jpg'
-import h from '../../img/h.jpg'
-import g from '../../img/g.jpg'
+import bulbo2 from '../../img/icons/bulbo2.png';
+import gif1 from '../../img/textures/gif4.gif'
+import gif2 from '../../img/textures/gif2.gif'
+import gif3 from '../../img/textures/gif3.gif'
+import gif5 from '../../img/textures/gif5.gif'
 
-
-function HomePage() {
+function HomePage({ theme, setTheme }) {
   const [isLoading, setIsLoading] = useState(true);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+  };
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -37,11 +39,12 @@ function HomePage() {
     const showDemo = () => {
       document.body.style.overflow = 'auto';
       document.scrollingElement.scrollTo(0, 0);
-      gsap.to(document.querySelector('.loader'), { autoAlpha: 0, delay: 1 });
+      gsap.to(document.querySelector('.loader'), { autoAlpha: 0, delay: 0.5 });
 
+      
       gsap.utils.toArray('section').forEach((section, index) => {
         const w = section.querySelector('.wrapper');
-        const [x, xEnd] = index % 2 ? ['100%', (w.scrollWidth - section.offsetWidth) * -1] : [w.scrollWidth * 1, 0];
+        const [x, xEnd] = index % 2 ? ['100%', (w.scrollWidth - section.offsetWidth) * -1] : [w.scrollWidth * 1, 1];
         gsap.fromTo(
           w,
           { x },
@@ -49,17 +52,17 @@ function HomePage() {
             x: xEnd,
             scrollTrigger: {
               trigger: section,
-              scrub: 2.5,
+              scrub: 0.5,
             },
           }
         );
       });
-
+    
       gsap.from('.title', {
         opacity: 0,
         y: 100,
-        duration: 3,
-        delay: 0.8,
+        duration: 0.8,
+        delay: 0.2,
       });
 
       setIsLoading(false);
@@ -81,7 +84,7 @@ function HomePage() {
       maxScroll = root.height() - viewport.height();
     },
   }).trigger('resize');
-  
+
   return (
     <div className="containerr">
       <div className="loader df aic jcc">
@@ -92,99 +95,86 @@ function HomePage() {
       </div>
 
       <div className="demo-wrapper">
-        <div className='containter' id='banner'>
+        <div className='containter' id='banner'> {/** main*/}
           <div className='widthT'>
-            <h1 className='title'>AI-powered strategy creation</h1>
-            <button className='btnCreateAI'> <a href="/createwithia" id='start'>Free Trial</a></button>
-          </div>
+            <div> 
+            <h1 className='title' id='aipowered'> 	<span className='yellowB'>&#10100; AI-powered &#10101;</span>strategy creation</h1>
+            <button class="learn-more">
+              <span class="circle" aria-hidden="true">
+                <span class="icon arrow"></span>
+              </span>
+              <span > <a href="/createwithia" class="button-text" id='noSub'>Free Trial</a></span>
+            </button>
+            </div>
+            <div>
+              <label className="lamp-container">
+                <input className="control"
+                  type="checkbox"
+                  checked={theme === 'dark'}
+                  onChange={toggleTheme}
+                  readOnly
+                />
+                <div className="glare"></div>
+                <div className="hook">
+                  <div className="hook-element"></div>
+                </div>
+                <div className="base">
+                  <div className="base-container">
+                    <div className="depth"></div>
+                  </div>
+                  <div className="light">
+                    <div className="light-bulb"></div>
+                  </div>
+                </div>
+                <div className="support">
+                  <div className="leg-container">
+                    <div className="leg-support"></div>
+                    <div className="leg-support"></div>
+                    <div className="leg-support"></div>
+                  </div>
+                </div>
+                <div className="additionalLight"></div>
+                <div className="shadow"></div>
+                <div className="background"></div>
+                <div className="headline-container"></div>
+              </label>
+              <label className="text"></label>
+            </div>
+            
+
+        
+            </div>
         </div>
         
         <section className="demo-gallery gallery2">
-          <h1 className='titlePad1'>Your own personal designer, AI developer.</h1>
           <ul className="wrapper">
             <li>
               <img
-                src="https://source.unsplash.com/random/1240x874?sig=83"
+                src={gif1}
                 alt="Gallery Image 4"
               />
             </li>
             <li>
               <img
-                src="https://source.unsplash.com/random/1240x874?sig=20"
+                src={gif2}
                 alt="Gallery Image 5"
               />
             </li>
             <li>
               <img
-                src="https://source.unsplash.com/random/1240x874?sig=103"
+                src={gif3}
                 alt="Gallery Image 6"
               />
             </li>
           </ul>
+
+          
         </section>
+  
 
-        <TimeLine/>
-        
-        <div className='container' id='container3'>
-          <h1 className='titlePad'>No-code AI Website Builder</h1>
-          <Row xs={1} md={2} className="g-4">
-            <Col>
-              <Card className='d-flex align-items-center withnoLine'>
-                <div className="image-container">
-                  <Card.Img className='imgCard' variant="top" src={max} />
-                </div>
-                <div className="card-content">
-                  <Card.Body>
-                    <Card.Title className='max'>&#10077;</Card.Title>
-                    <Card.Text> <span className='yellowCard'>WordPress killer.</span> I finally enjoy updating my website and growing my business.</Card.Text>
-                  </Card.Body>
-                </div>
-              </Card>
-            </Col>
-            <Col>
-              <Card className='d-flex align-items-center withnoLine'>
-                <div className="image-container">
-                  <Card.Img className='imgCard' variant="top" src={h} />
-                </div>
-                <div className="card-content">
-                  <Card.Body>
-                    <Card.Title className='max'>&#10077;</Card.Title>
-                    <Card.Text>We built our website in no time. <strong>Without coding</strong> and powered by <strong>AI technology</strong>, it's a game changer.</Card.Text>
-                  </Card.Body>
-                </div>
-              </Card>
-            </Col>
-            <Col>
-              <Card className='d-flex align-items-center withnoLine'>
-                <div className="image-container">
-                  <Card.Img className='imgCard' variant="top" src={g} />
-                </div>
-                <div className="card-content">
-                  <Card.Body>
-                    <Card.Title className='max'>&#10077;</Card.Title>
-                    <Card.Text>I was able to generate a customized website in just a few clicks. <strong>Recommended!</strong></Card.Text>
-                  </Card.Body>
-                </div>
-              </Card>
-            </Col>
-            <Col>
-              <Card className='d-flex align-items-center withnoLine'>
-                <div className="image-container">
-                  <Card.Img className='imgCard' variant="top" src={max} />
-                </div>
-                <div className="card-content">
-                  <Card.Body>
-                    <Card.Title className='max'>&#10077;</Card.Title>
-                    <Card.Text> <span className='yellowCard'>Time is money</span>. That's why this website builder is the perfect tool for me.</Card.Text>
-                  </Card.Body>
-                </div>
-              </Card>
-            </Col>
-          </Row>
-        </div>
+        <TimeLine />
+
       </div>
-
-    
     </div>
   );
 }

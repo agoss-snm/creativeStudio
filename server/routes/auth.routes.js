@@ -12,6 +12,14 @@ const User = require("../models/User.model");
 const Element = require ('../models/Element.model')
 const Comment = require("../models/Comment.model");
 
+const mongoose = require("mongoose");
+const axios = require("axios");
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const { Configuration, OpenAIApi } = require('openai');
+
+
+
 // Require necessary (isAuthenticated) middleware in order to control access to specific routes
 const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 
@@ -121,11 +129,6 @@ router.post("/login", (req, res, next) => {
 
 // GET  /auth/verify  -  Used to verify JWT stored on the client
 router.get("/verify", isAuthenticated, (req, res, next) => {
-  // If JWT token is valid the payload gets decoded by the
-  // isAuthenticated middleware and is made available on `req.payload`
-  // console.log(`req.payload`, req.payload);
-
-  // Send back the token payload object containing the user data
   res.status(200).json(req.payload);
 });
 
@@ -144,5 +147,6 @@ router.get("/:id", (req, res, next) => {
       res.status(500).json({ error: "Error retrieving user details" });
     });
 });
+
 
 module.exports = router;

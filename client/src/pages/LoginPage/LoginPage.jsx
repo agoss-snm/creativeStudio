@@ -43,7 +43,6 @@ function LoginPage() {
 
   return (
     <div className='containerForm'>
-      <h1 className='titleForm'>Login</h1>
       <div className="LoginPage">
         <div className='flex'>
           <form onSubmit={handleLoginSubmit}>
