@@ -14,12 +14,12 @@ import AddElement from "./pages/AddElement/AddElement";
 import CreateIa from "./pages/CreateIA/CreateIa";
 import Footer from "./components/Footer/Footer";
 import ElementDetailPage from './pages/Element/ElementDetailPage'
-import { useState } from "react";
-import bulbo from './img/icons/bulbo.png'
-import bulbo2 from './img/icons/bulbo2.png'
+import EditPage from "./pages/EditPage/EditPage";
+
 
 
 function App({ theme, setTheme, children }) {
+  
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
@@ -28,7 +28,7 @@ function App({ theme, setTheme, children }) {
 
   return (
     <div className="App">
-      <Navbarr theme={theme} setTheme={setTheme}q
+      <Navbarr theme={theme} setTheme={setTheme}
       />
       <Routes>
         <Route
@@ -38,6 +38,12 @@ function App({ theme, setTheme, children }) {
               <ProfilePage />
             </IsPrivate>
           }
+        />
+        <Route 
+        path='/elements/:id/edit'
+        element={
+          <EditPage/>
+        }
         />
         <Route
     path="/"

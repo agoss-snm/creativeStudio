@@ -7,7 +7,6 @@ const bodyParser = require('body-parser');
 const { Configuration, OpenAIApi } = require('openai');
 
 const Element = require('../models/Element.model');
-const Response = require("../models/Response.model");
 const User = require("../models/User.model");
 
 
@@ -109,6 +108,41 @@ router.get("/elements/:id", (req, res, next) => {
       res.status(500).json({ error: "Error retrieving the element" });
     });
 });
+
+
+// delete element
+router.delete("/elements/:id", (req, res, next) => {
+  const elementId = req.params.id;
+
+  Element.findByIdAndDelete(elementId)
+    .then(() => {
+      res.json({ message: "Element deleted successfully" });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: "Error deleting the element" });
+    });
+});
+
+
+// Ruta para editar un elemento
+router.get("/elements/:id/edit", (req, res, next) => {
+  const elementId = req.params.id;
+
+  Element.findById(elementId)
+    .then((element) => {
+      if (!element) {
+        return res.status(404).json({ error: "Element not found" });
+      }
+
+      res.json(element);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: "Error retrieving the element" });
+    });
+});
+
 
 
 

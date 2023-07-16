@@ -9,14 +9,10 @@ const jwt = require("jsonwebtoken");
 
 // Require the User model in order to interact with the database
 const User = require("../models/User.model");
-const Element = require ('../models/Element.model')
-const Comment = require("../models/Comment.model");
-
 const mongoose = require("mongoose");
 const axios = require("axios");
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const { Configuration, OpenAIApi } = require('openai');
 
 
 

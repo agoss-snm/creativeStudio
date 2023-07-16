@@ -4,14 +4,13 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import "../Element/Element.css";
 import { AuthContext } from "../../context/auth.context";
 
-
 const ElementDetailPage = () => {
     const { id } = useParams();
     const [element, setElement] = useState(null);
     const [renderedCode, setRenderedCode] = useState(null);
     const [isCurrentUser, setIsCurrentUser] = useState(false);
     const { user } = useContext(AuthContext);
-
+    const navigate = useNavigate();
     useEffect(() => {
         axios
             .get(`http://localhost:5005/api/elements/${id}`)
@@ -24,13 +23,15 @@ const ElementDetailPage = () => {
     }, [id, user]);
 
     const handleDelete = () => {
-        axios
+        if (window.confirm("¿Estás seguro de que quieres eliminar este elemento?")) {
+          axios
             .delete(`http://localhost:5005/api/elements/${id}`)
             .then(() => {
-                
+              navigate("/elements");
             })
             .catch((error) => console.log(error));
-    };
+        }
+      };
 
     if (!element) {
         return <div>Cargando...</div>;
@@ -65,11 +66,10 @@ const ElementDetailPage = () => {
                 </button>
                 {isCurrentUser && (
                     <>
-                        <button className="buttonDetail">Save</button>
                         <button className="buttonDetail" onClick={handleDelete}>
                             Delete
                         </button>
-                        <button className="buttonDetail">Edit</button>
+                        <button className="buttonDetail"><Link to={`/elements/${id}/edit`}>Edit</Link></button>
                     </>
                 )}
             </div>
